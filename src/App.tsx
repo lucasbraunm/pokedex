@@ -1,13 +1,17 @@
 import React from 'react';
-import PokemonCards from './components/PokemonCards';
+import PokemonList from './components/PokemonList';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <div className="App">
-      <PokemonCards 
+      <Header account=""/>
+      <PokemonList 
       offset={0}
-      pagination={40}
+      pagination={20}
       />
+      <Footer/>
     </div>
   );
 }

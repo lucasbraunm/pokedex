@@ -1,19 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { PokemonClient, NamedAPIResource, Pokemon } from 'pokenode-ts';
-import { Card, CardsContainer } from './style'
+import { PokemonListContainer } from './style'
+import PokemonCard from '../PokemonCard'
 
-type PokemonCardsProps = {
+type PokemonListProps = {
     offset: number;
     pagination: number;
 };
 
-const PokemonCards = ({
+const PokemonList = ({
     offset=0,
     pagination=20
-    }: PokemonCardsProps) => {
+    }: PokemonListProps) => {
     const [pokemonList, setPokemonList] = useState<NamedAPIResource[]>([]);
 
-    const getPokemonsFromAPI = useCallback(async () => {
+    const getListPokemonsFromAPI = useCallback(async () => {
         const api = new PokemonClient();
         
         await api
@@ -26,18 +27,20 @@ const PokemonCards = ({
     }, []);
     
     useEffect(() => {
-        getPokemonsFromAPI();
+        getListPokemonsFromAPI();
     }, []);
 
     return (
-        <CardsContainer>
+        <PokemonListContainer>
             {pokemonList &&
                 pokemonList?.length > 0 &&
                 pokemonList.map((pokemon) => (
-                    <Card>{pokemon.name}</Card>
+                    <PokemonCard 
+                    pokemonName={pokemon.name}
+                    />
             ))}
-        </CardsContainer>
+        </PokemonListContainer>
     );
 };
 
-export default PokemonCards;
+export default PokemonList;
